@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
 import com.example.todoappcompose.data.source.TasksRepository
 import com.example.todoappcompose.statistics.StatisticsViewModel
+import com.example.todoappcompose.taskdetail.TaskDetailViewModel
 import com.example.todoappcompose.tasks.TasksViewModel
 
 /**
@@ -27,8 +28,8 @@ class ViewModelFactory constructor(
         when {
             isAssignableFrom(StatisticsViewModel::class.java) ->
                 StatisticsViewModel(tasksRepository)
-//            isAssignableFrom(TaskDetailViewModel::class.java) ->
-//                TaskDetailViewModel(tasksRepository, handle)
+            isAssignableFrom(TaskDetailViewModel::class.java) ->
+                TaskDetailViewModel(tasksRepository, handle)
 //            isAssignableFrom(AddEditTaskViewModel::class.java) ->
 //                AddEditTaskViewModel(tasksRepository, handle)
             isAssignableFrom(TasksViewModel::class.java) ->

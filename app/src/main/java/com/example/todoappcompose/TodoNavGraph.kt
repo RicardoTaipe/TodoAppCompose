@@ -9,6 +9,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -18,8 +19,11 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.todoappcompose.TodoDestinationsArgs.USER_MESSAGE_ARG
 import com.example.todoappcompose.statistics.StatisticsScreen
+import com.example.todoappcompose.taskdetail.TaskDetailScreen
+import com.example.todoappcompose.taskdetail.TaskDetailViewModel
 import com.example.todoappcompose.tasks.TasksScreen
 import com.example.todoappcompose.util.AppModalDrawer
+import com.example.todoappcompose.util.getViewModelFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -56,6 +60,20 @@ fun TodoNavGraph(
             AppModalDrawer(drawerState, currentRoute, navActions) {
                 StatisticsScreen(openDrawer = { coroutineScope.launch { drawerState.open() } })
             }
+        }
+
+        composable(TodoDestinations.TASK_DETAIL_ROUTE) { entry ->
+            val viewModel: TaskDetailViewModel = viewModel(
+                factory = getViewModelFactory(entry.arguments)
+            )
+            TaskDetailScreen(
+                viewModel = viewModel,
+                onEditTask = { taskId ->
+                    navActions.navigateToAddEditTask(R.string.edit_task, taskId)
+                },
+                onBack = { navController.popBackStack() },
+                onDeleteTask = { navActions.navigateToTasks(DELETE_RESULT_OK) }
+            )
         }
     }
 }
