@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
 import com.example.todoappcompose.data.source.TasksRepository
 import com.example.todoappcompose.statistics.StatisticsViewModel
+import com.example.todoappcompose.tasks.TasksViewModel
 
 /**
  * Factory for all ViewModels.
@@ -30,8 +31,8 @@ class ViewModelFactory constructor(
 //                TaskDetailViewModel(tasksRepository, handle)
 //            isAssignableFrom(AddEditTaskViewModel::class.java) ->
 //                AddEditTaskViewModel(tasksRepository, handle)
-//            isAssignableFrom(TasksViewModel::class.java) ->
-//                TasksViewModel(tasksRepository, handle)
+            isAssignableFrom(TasksViewModel::class.java) ->
+                TasksViewModel(tasksRepository, handle)
             else ->
                 throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
