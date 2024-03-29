@@ -19,6 +19,7 @@ import androidx.navigation.navArgument
 import com.example.todoappcompose.TodoDestinationsArgs.USER_MESSAGE_ARG
 import com.example.todoappcompose.statistics.StatisticsScreen
 import com.example.todoappcompose.tasks.TasksScreen
+import com.example.todoappcompose.util.AppModalDrawer
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -43,13 +44,13 @@ fun TodoNavGraph(
         composable(TodoDestinations.TASKS_ROUTE, arguments = listOf(navArgument(USER_MESSAGE_ARG) {
             type = NavType.IntType; defaultValue = 0
         })) { entry ->
-            //AppModalDrawer(drawerState, currentRoute, navActions) {
-            TasksScreen(userMessage = entry.arguments?.getInt(USER_MESSAGE_ARG)!!,
-                onUserMessageDisplayed = { entry.arguments?.putInt(USER_MESSAGE_ARG, 0) },
-                onAddTask = { navActions.navigateToAddEditTask(R.string.add_task, null) },
-                onTaskClick = { task -> navActions.navigateToTaskDetail(task.id) },
-                openDrawer = { coroutineScope.launch { drawerState.open() } })
-            //}
+            AppModalDrawer(drawerState, currentRoute, navActions) {
+                TasksScreen(userMessage = entry.arguments?.getInt(USER_MESSAGE_ARG)!!,
+                    onUserMessageDisplayed = { entry.arguments?.putInt(USER_MESSAGE_ARG, 0) },
+                    onAddTask = { navActions.navigateToAddEditTask(R.string.add_task, null) },
+                    onTaskClick = { task -> navActions.navigateToTaskDetail(task.id) },
+                    openDrawer = { coroutineScope.launch { drawerState.open() } })
+            }
         }
         composable(TodoDestinations.STATISTICS_ROUTE) {
 
