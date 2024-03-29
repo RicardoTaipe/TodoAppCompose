@@ -53,9 +53,9 @@ fun TodoNavGraph(
             }
         }
         composable(TodoDestinations.STATISTICS_ROUTE) {
-
-            StatisticsScreen({})
-
+            AppModalDrawer(drawerState, currentRoute, navActions) {
+                StatisticsScreen(openDrawer = { coroutineScope.launch { drawerState.open() } })
+            }
         }
     }
 }

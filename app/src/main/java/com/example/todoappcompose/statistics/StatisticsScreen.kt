@@ -28,10 +28,8 @@ fun StatisticsScreen(
     openDrawer: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: StatisticsViewModel = viewModel(factory = getViewModelFactory()),
-    //scaffoldState: ScaffoldState = rememberScaffoldState()
 ) {
     Scaffold(
-        //scaffoldState = scaffoldState,
         topBar = { StatisticsTopAppBar(openDrawer) }) { paddingValues ->
         val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
